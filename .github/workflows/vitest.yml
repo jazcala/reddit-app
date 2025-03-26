@@ -2,9 +2,9 @@ name: Run Vitest Tests
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
-    branches: [main, develop]
+    branches: [main]
 
 jobs:
   test:
@@ -23,4 +23,4 @@ jobs:
         run: npm ci
 
       - name: Run Vitest Tests
-        run: npm run test-headless
+        run: npm run test

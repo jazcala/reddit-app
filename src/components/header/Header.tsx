@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <header>
       <a href="/">
-        <FaRedditAlien />
+        <FaRedditAlien data-testid="reddit-icon" />
         <h1>Reddit App</h1>
       </a>
     </header>

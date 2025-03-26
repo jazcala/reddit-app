@@ -13,12 +13,6 @@ export default defineConfig(({ mode }) => {
       },
     },
     base: env.VITE_BASE_URL || "/",
-    test: {
-      browser: {
-        enabled: true,
-        provider: "playwright",
-        instances: [{ browser: "chromium" }],
-      },
-    },
+
   };
 });

@@ -6,7 +6,7 @@ export default function SearchBar() {
     <section className="search-bar">
       <input type="text" placeholder="Search Reddit" />
       <button>
-        <FaSearch />
+        <FaSearch data-testid="search-icon" />
       </button>
     </section>
   );
