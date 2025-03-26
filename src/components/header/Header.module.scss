@@ -1,0 +1,24 @@
+@use '../../index.scss';
+
+header {
+  background-color: index.$primary-color;
+  width: 100%;
+
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: index.$dark-color;
+
+    &:hover {
+      color: index.$dark-color;
+    }
+
+    img {
+      height: 2rem;
+      padding: 1.5rem 1rem;
+      will-change: filter;
+      transition: filter 300ms;
+    }
+  }
+}
