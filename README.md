@@ -4,4 +4,6 @@
 ## Tecnologies
 - React
 - Redux
+- typescript
+- sass
 - Vite
