@@ -6,7 +6,7 @@ $success-color: #28a745;
 $danger-color: #dc3545;
 $warning-color: #ffc107;
 $info-color: #17a2b8;
-$light-color: #f3dac0;
+$light-color: #f6ede3;
 $dark-color: #343a40;
 $white-color: #ffffff;
 $black-color: #000000;
@@ -31,6 +31,7 @@ $background-color: #fff; // General background color
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
