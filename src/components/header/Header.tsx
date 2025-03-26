@@ -1,11 +1,11 @@
-import redditLogo from "../../assets/reddit.svg";
+import { FaRedditAlien } from "react-icons/fa";
 import "./Header.module.scss";
 
 export default function Header() {
   return (
     <header>
       <a href="/">
-        <img src={redditLogo} alt="Reddit Logo" />
+        <FaRedditAlien data-testid="reddit-icon" />
         <h1>Reddit App</h1>
       </a>
     </header>
