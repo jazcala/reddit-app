@@ -4,10 +4,12 @@ import styles from "./SearchBar.module.scss";
 export default function SearchBar() {
   return (
     <section className={styles.searchBar}>
-      <input type="text" placeholder="Search Reddit" />
-      <button>
-        <FaSearch data-testid="search-icon" />
-      </button>
+      <div>
+        <input type="text" placeholder="Search Reddit" />
+        <button>
+          <FaSearch data-testid="search-icon" />
+        </button>
+      </div>
     </section>
   );
 }

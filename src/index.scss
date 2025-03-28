@@ -12,6 +12,7 @@ $white-color: #ffffff;
 $black-color: #000000;
 $text-color: #333; // General text color
 $background-color: #fff; // General background color
+$placeholder-color: #c2c2c2;
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -36,7 +37,7 @@ $background-color: #fff; // General background color
 
 body {
   min-width: 320px;
-  min-height: 100vh;
+  max-height: 100vh;
 }
 
 @media (prefers-color-scheme: light) {
