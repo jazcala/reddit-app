@@ -21,7 +21,7 @@ export default function Subreddits() {
 
   /* Set the width of the side navigation to 0 */
   function closeNav() {
-    setMySidenavStyle({ width: "0", color: "pink" });
+    setMySidenavStyle({ width: "0" });
   }
   return (
     <>

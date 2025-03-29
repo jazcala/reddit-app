@@ -3,15 +3,14 @@
 .subreddits {
   height: 100%;
   opacity: 0.95;
-  background-color: index.$white-color;
   width: 0;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
   overflow-x: hidden;
-  transition: 0.5s;
   float: left;
+  background-color: index.$dark-color;
 
   .closebtn {
     display: flex;
@@ -36,7 +35,7 @@
     list-style: none;
     border: 1px solid index.$primary-color;
     border-radius: 5px;
-    margin: auto 10px;
+    margin: auto 5px;
 
     li {
       border-bottom: index.$primary-color 1px solid;
@@ -76,6 +75,7 @@
 @media (prefers-color-scheme: light) {
   .subreddits {
     color: #29627e;
+    background-color: index.$white-color;
   }
 }
 
@@ -86,10 +86,10 @@
     min-width: 220px;
     margin-top: 20px;
 
-    h2,
-    li {
-      color: index.$secondary-color;
-    }
+    // h2,
+    // li {
+    //   color: index.$secondary-color;
+    // }
 
     .closebtn {
       display: none;
