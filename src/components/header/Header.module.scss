@@ -1,14 +1,17 @@
-@use '@/index.scss';
+@use "@/index.scss";
 
-header {
+.header {
   background-color: index.$dark-color;
   width: 100%;
   padding: 1rem;
+  position: fixed;
+  height: 5.8rem;
+  top: 0;
 
   a {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     text-decoration: none;
     color: index.$primary-color;
 
@@ -18,7 +21,15 @@ header {
 
     svg {
       font-size: 3rem;
-      margin: auto 1rem 0.8rem;
+      margin: auto 0.8rem 0.8rem 0;
+    }
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .header {
+    a {
+      justify-content: center;
     }
   }
 }

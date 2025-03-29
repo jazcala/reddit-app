@@ -1,35 +1,63 @@
-@use '@/index.scss';
+@use "@/index.scss";
 
-section {
+.searchBar {
   width: 100%;
   display: flex;
   justify-content: center;
   padding: 5px;
+  padding-right: 0;
   height: auto;
+  margin-top: 5.8rem;
 
-  input,
-  button {
-    border-radius: 5px;
-    border-color: index.$primary-color;
-  }
+  div {
+    position: relative;
+    width: 100%;
 
-  input {
-    width: 90%;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    padding: 0.5rem;
-  }
-
-  button {
-    background-color: index.$primary-color;
-    color: index.$light-color;
-    width: 10%;
-    margin-left: -3px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-
-    svg {
-      font-size: 1.2rem;
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      color: index.$light-color;
+      background-color: index.$dark-color;
+      line-height: 1;
+      border-radius: 5px;
+      border-color: index.$primary-color;
     }
+
+    button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      border-radius: 5px;
+      background-color: index.$primary-color;
+      color: index.$light-color;
+      width: 15%;
+      border: 0;
+      z-index: 2;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+
+      svg {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+::placeholder {
+  color: index.$placeholder-color;
+}
+
+@media (prefers-color-scheme: light) {
+  .searchBar {
+    div input {
+      background-color: white;
+    }
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .searchBar {
+    padding-right: 5px;
   }
 }

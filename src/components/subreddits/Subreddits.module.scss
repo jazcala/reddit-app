@@ -1,0 +1,102 @@
+@use "@/index.scss";
+
+.subreddits {
+  height: 100%;
+  opacity: 0.95;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  float: left;
+  background-color: index.$dark-color;
+
+  .closebtn {
+    display: flex;
+    justify-content: flex-end;
+    color: index.$secondary-color;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-style: normal;
+    padding-right: 10px;
+
+    &:hover {
+      color: index.$dark-color;
+    }
+  }
+
+  h2 {
+    margin-left: 15px;
+    margin-bottom: 5px;
+  }
+
+  ul {
+    list-style: none;
+    border: 1px solid index.$primary-color;
+    border-radius: 5px;
+    margin: auto 5px;
+
+    li {
+      border-bottom: index.$primary-color 1px solid;
+      padding: 5px 15px;
+      line-height: 1.5;
+      display: flex;
+
+      svg {
+        font-size: 1.5rem;
+        margin-right: 10px;
+        min-width: 24px;
+      }
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+}
+
+.filterBtn {
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: index.$primary-color;
+  color: index.$light-color;
+  width: 15%;
+  height: 5.8rem;
+  border: 0;
+  z-index: 2;
+
+  svg {
+    font-size: 1.2rem;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .subreddits {
+    color: #29627e;
+    background-color: index.$white-color;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .subreddits {
+    position: relative;
+    width: 25%;
+    min-width: 220px;
+    margin-top: 20px;
+
+    // h2,
+    // li {
+    //   color: index.$secondary-color;
+    // }
+
+    .closebtn {
+      display: none;
+    }
+  }
+
+  .filterBtn {
+    display: none;
+  }
+}

@@ -1,13 +1,15 @@
 import { FaSearch } from "react-icons/fa";
-import "./SearchBar.module.scss";
+import styles from "./SearchBar.module.scss";
 
 export default function SearchBar() {
   return (
-    <section className="search-bar">
-      <input type="text" placeholder="Search Reddit" />
-      <button>
-        <FaSearch data-testid="search-icon" />
-      </button>
+    <section className={styles.searchBar}>
+      <div>
+        <input type="text" placeholder="Search Reddit" />
+        <button>
+          <FaSearch data-testid="search-icon" />
+        </button>
+      </div>
     </section>
   );
 }
