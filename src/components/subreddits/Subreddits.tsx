@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./Subreddits.module.scss";
-import { FcReddit } from "react-icons/fc";
+import { TfiReddit } from "react-icons/tfi";
 import { FaBars } from "react-icons/fa";
 
 const subreddits = [
@@ -37,7 +37,7 @@ export default function Subreddits() {
         <ul>
           {subreddits.map((subreddit, index) => (
             <li key={index}>
-              <FcReddit />
+              <TfiReddit />
               <span>{subreddit}</span>
             </li>
           ))}
