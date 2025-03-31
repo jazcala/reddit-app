@@ -7,7 +7,7 @@
   margin: 5px;
 
   .post {
-    background-color: rgba(81, 93, 96, 0.5);
+    background-color: rgba(246, 237, 227, 0.3);
     width: 100%;
     border: 1px solid index.$primary-color;
     border-radius: 5px;
@@ -56,5 +56,12 @@
   .posts {
     width: 70%;
     margin-right: 5px;
+  }
+}
+
+
+@media (prefers-color-scheme: light) {
+  .post {
+    background-color: rgba(81, 93, 96, 0.5);
   }
 }
