@@ -1,0 +1,51 @@
+@use "@/index.scss";
+
+li.subreddit {
+  border-bottom: index.$primary-color 1px solid;
+  padding: 8px 10px;
+  line-height: 1.5;
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+
+  &.active {
+    color: index.$primary-color;
+    background-color: index.$light-color;
+  }
+
+  img,
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 10px;
+  }
+
+  img {
+    border-radius: 50px;
+  }
+
+  svg {
+    font-size: 1.5rem;
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  .name {
+    display: flex;
+    justify-items: center;
+    text-transform: capitalize;
+    font-size: 0.9rem;
+  }
+
+}
+
+@media (prefers-color-scheme:light) {
+  .subreddit {
+    &.active {
+      color: index.$primary-color;
+      background-color: index.$light-color;
+    }
+  }
+}
