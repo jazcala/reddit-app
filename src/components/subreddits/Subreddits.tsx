@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Subreddits.module.scss";
 import { FaBars } from "react-icons/fa";
 // redux

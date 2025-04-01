@@ -10,7 +10,7 @@ li.subreddit {
 
   &.active {
     color: index.$primary-color;
-    background-color: index.$light-color;
+    background-color: rgba(246, 237, 227, 0.3);
   }
 
   img,
