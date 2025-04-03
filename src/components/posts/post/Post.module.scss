@@ -1,6 +1,11 @@
 @use "@/index.scss";
 
 .post {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 200px;
   background-color: rgba(246, 237, 227, 0.1);
   width: 100%;
   border: 1px solid index.$primary-color;
@@ -11,7 +16,7 @@
 
   img {
     width: 90%;
-    min-width: 350px;
+    min-width: 200px;
     height: auto;
     padding: 10px;
   }
@@ -20,6 +25,8 @@
     display: flex;
     justify-content: space-between;
     padding: 10px;
+    border-top: 1px index.$primary-color solid;
+    width: 97%;
 
     .comments {
       cursor: pointer;

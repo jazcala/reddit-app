@@ -6,14 +6,12 @@
   opacity: 0.95;
   width: 0;
   position: fixed;
-  z-index: 3;
+  z-index: 1;
   top: 0;
   left: 0;
   overflow-x: hidden;
   float: left;
   background-color: index.$dark-color;
-  max-height: 100vh;
-  overflow: scroll;
 
   .closebtn {
     display: flex;
@@ -71,7 +69,6 @@
     width: 25%;
     min-width: 220px;
     margin-top: 20px;
-    z-index: 1;
 
     .closebtn {
       display: none;
