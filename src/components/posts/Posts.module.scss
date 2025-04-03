@@ -5,63 +5,13 @@
   border: 1px solir index.$primary-color;
   text-align: center;
   margin: 5px;
-
-  .post {
-    background-color: rgba(246, 237, 227, 0.3);
-    width: 100%;
-    border: 1px solid index.$primary-color;
-    border-radius: 5px;
-    border-left: none;
-    border-right: none;
-    margin: 20px 0;
-
-    img {
-      width: 90%;
-      min-width: 350px;
-      height: auto;
-      padding: 10px;
-    }
-
-    .bottom {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px;
-
-      .comments {
-        cursor: pointer;
-      }
-
-      svg {
-        margin: 0 10px;
-        cursor: pointer;
-
-        &:hover {
-          color: index.$primary-color;
-        }
-      }
-
-      .author a {
-        color: index.$primary-color;
-        text-decoration: none;
-
-        &:visited {
-          color: index.$primary-color;
-        }
-      }
-    }
-  }
+  max-height: 100vh;
+  overflow: scroll;
 }
 
 @media screen and (min-width: 650px) {
   .posts {
     width: 70%;
     margin-right: 5px;
-  }
-}
-
-
-@media (prefers-color-scheme: light) {
-  .post {
-    background-color: rgba(81, 93, 96, 0.5);
   }
 }

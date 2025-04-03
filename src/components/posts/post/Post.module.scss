@@ -1,0 +1,52 @@
+@use "@/index.scss";
+
+.post {
+  background-color: rgba(246, 237, 227, 0.1);
+  width: 100%;
+  border: 1px solid index.$primary-color;
+  border-radius: 5px;
+  border-left: none;
+  border-right: none;
+  margin: 20px 0;
+
+  img {
+    width: 90%;
+    min-width: 350px;
+    height: auto;
+    padding: 10px;
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+
+    .comments {
+      cursor: pointer;
+    }
+
+    svg {
+      margin: 0 10px;
+      cursor: pointer;
+
+      &:hover {
+        color: index.$primary-color;
+      }
+    }
+
+    .author a {
+      color: index.$primary-color;
+      text-decoration: none;
+
+      &:visited {
+        color: index.$primary-color;
+      }
+    }
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .post {
+    background-color: index.$light-color;
+  }
+}

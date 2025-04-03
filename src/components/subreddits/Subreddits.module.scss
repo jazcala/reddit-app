@@ -12,6 +12,8 @@
   overflow-x: hidden;
   float: left;
   background-color: index.$dark-color;
+  max-height: 100vh;
+  overflow: scroll;
 
   .closebtn {
     display: flex;
