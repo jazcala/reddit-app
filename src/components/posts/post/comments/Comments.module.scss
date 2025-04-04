@@ -1,0 +1,43 @@
+@use "@/index.scss";
+
+.commentsSection {
+  height: auto;
+  width: 100%;
+
+  .comment {
+    background-color: rgba(246, 237, 227, 0.1);
+    margin: 10px;
+    text-align: start;
+
+    h4 {
+      background-color: rgba(246, 237, 227, 0.2);
+      border-start-end-radius: 5px;
+      border-start-start-radius: 5px;
+      border-bottom: 1px solid index.$primary-color;
+      padding: 5px 15px;
+      text-transform: capitalize;
+    }
+
+    p {
+      background-color: rgba(246, 237, 227, 0.1);
+      padding: 5px 15px;
+      border-end-end-radius: 5px;
+      border-end-start-radius: 5px;
+    }
+
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .comment {
+    background-color: index.$light-color;
+
+    h4 {
+      background-color: index.$white-color;
+    }
+
+    p {
+      background-color: index.$white-color;
+    }
+  }
+}

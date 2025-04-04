@@ -1,0 +1,81 @@
+@use "@/index.scss";
+
+.post {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(246, 237, 227, 0.1);
+  width: 100%;
+  border: 1px solid index.$primary-color;
+  border-radius: 5px;
+  border-left: none;
+  border-right: none;
+  margin: 20px 0;
+
+  img,
+  .noImage {
+    width: 90%;
+    min-width: 200px;
+    padding: 10px;
+    margin: 2rem 0 auto;
+  }
+
+  .noImage {
+    min-height: 200px;
+    background-color: index.$dark-color;
+    border-radius: 5px;
+  }
+
+  h3 {
+    line-height: 1.5;
+    margin: 15px;
+    width: 90%;
+    text-align: start;
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 1px index.$primary-color solid;
+    width: 97%;
+
+    button.comments {
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+
+      &:hover {
+        color: index.$primary-color;
+      }
+
+      svg {
+        margin: 0 10px;
+      }
+    }
+
+    .score svg {
+      margin: 0 10px;
+      cursor: pointer;
+
+      &:hover {
+        color: index.$primary-color;
+      }
+    }
+
+    .author a {
+      color: index.$primary-color;
+      text-decoration: none;
+
+      &:visited {
+        color: index.$primary-color;
+      }
+    }
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .post {
+    background-color: index.$light-color;
+  }
+}

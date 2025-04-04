@@ -1,28 +1,53 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Subreddits.module.scss";
-import { TfiReddit } from "react-icons/tfi";
 import { FaBars } from "react-icons/fa";
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSubreddits } from "../../api/api";
+import { AppDispatch } from "../../app/store";
+// types
+import {
+  subredditProps,
+  subredditsSliceInitialStateProps,
+} from "../../types/types";
 
-const subreddits = [
-  "programming",
-  "webdev",
-  "androiddev",
-  "iOSProgramming",
-  "MachineLearning",
-  "learnprogramming",
-];
+import Subreddit from "./subreddit/Subreddit";
 
 export default function Subreddits() {
-  /* Set the width of the side navigation to 250px */
+  // states
   const [mySidenavStyle, setMySidenavStyle] = useState({});
+  const [selectedSubreddit, setSelectedSubreddit] = useState("all");
+  const { subreddits, status, error } = useSelector(
+    (state: { subreddits: subredditsSliceInitialStateProps }) =>
+      state.subreddits
+  );
+
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(fetchSubreddits());
+  }, [dispatch]);
+
+  if (status === "failed") {
+    return (
+      <div>
+        <p>Error loading subreddits: </p>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  /* Set the width of the side navigation to 250px */
   function openNav() {
     setMySidenavStyle({ width: "250px" });
   }
-
   /* Set the width of the side navigation to 0 */
   function closeNav() {
-    setMySidenavStyle({ width: "0", color: "pink" });
+    setMySidenavStyle({ width: "0" });
   }
+  const handleSubreddit = (selected: string) => {
+    setSelectedSubreddit(selected);
+    // dispatch(fetchPosts(selectedSubreddit));
+  };
   return (
     <>
       <aside
@@ -30,17 +55,28 @@ export default function Subreddits() {
         id="mySidenav"
         style={mySidenavStyle}
       >
-        <a href="#" className={styles.closebtn} onClick={closeNav}>
+        <a
+          href="#"
+          className={styles.closebtn}
+          onClick={closeNav}
+          aria-label="close"
+        >
           &times;
         </a>
         <h2>Subreddits</h2>
         <ul>
-          {subreddits.map((subreddit, index) => (
-            <li key={index}>
-              <TfiReddit />
-              <span>{subreddit}</span>
-            </li>
-          ))}
+          {status === "loading" ? (
+            <p>Loading subreddits...</p>
+          ) : (
+            subreddits.map((subreddit: subredditProps, index: number) => (
+              <Subreddit
+                key={index}
+                subreddit={subreddit}
+                handleSubreddit={handleSubreddit}
+                selectedSubreddit={selectedSubreddit}
+              />
+            ))
+          )}
         </ul>
       </aside>
       <button className={styles.filterBtn} onClick={openNav}>
