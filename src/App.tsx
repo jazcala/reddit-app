@@ -1,4 +1,5 @@
 import "./App.scss";
+import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import Posts from "./components/posts/Posts";
 import SearchBar from "./components/searchBar/SearchBar";
@@ -13,6 +14,7 @@ export default function App() {
         <SubReddits />
         <Posts />
       </main>
+      <Footer />
     </>
   );
 }
