@@ -13,9 +13,12 @@ import Comments from "./comments/Comments";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../app/store";
 import { fetchComments } from "../../../api/api";
+import { setScore } from "../../../features/posts/postsSlice";
 
 export default function Post({ post }: { post: postProps }) {
   const [showComments, setShowComments] = useState(false);
+  const [thumbsUp, setThumbsUp] = useState(false);
+  const [thumbsDown, setThumbsDown] = useState(false);
 
   const { commentsByPostId, status, error } = useSelector(
     (state: { comments: commentsSliceInitialStateProps }) => state.comments
@@ -29,6 +32,45 @@ export default function Post({ post }: { post: postProps }) {
     dispatch(fetchComments(post.id));
   };
 
+  const handleClickScore = (direction: string) => {
+    if (post.score) {
+      let scoreChange = 0;
+      let newThumbsUp = thumbsUp;
+      let newThumbsDown = thumbsDown;
+
+      if (direction === "up") {
+        if (thumbsUp) {
+          scoreChange = -1;
+          newThumbsUp = false;
+        } else if (thumbsDown) {
+          scoreChange = 2;
+          newThumbsUp = true;
+          newThumbsDown = false;
+        } else {
+          scoreChange = 1;
+          newThumbsUp = true;
+        }
+      } else if (direction === "down") {
+        if (thumbsDown) {
+          scoreChange = 1;
+          newThumbsDown = false;
+        } else if (thumbsUp) {
+          scoreChange = -2;
+          newThumbsDown = true;
+          newThumbsUp = false;
+        } else {
+          scoreChange = -1;
+          newThumbsDown = true;
+        }
+      }
+
+      dispatch(
+        setScore({ postId: post.id, newScore: post.score + scoreChange })
+      );
+      setThumbsUp(newThumbsUp);
+      setThumbsDown(newThumbsDown);
+    }
+  };
   return (
     <div className={styles.post}>
       {post.url.includes("jpg") ||
@@ -48,9 +90,15 @@ export default function Post({ post }: { post: postProps }) {
           By <a href="#">{post.author}</a>
         </div>
         <div className={styles.score}>
-          <BsHandThumbsDown />
+          <BsHandThumbsDown
+            className={thumbsDown ? styles.thumbsDown : ""}
+            onClick={() => handleClickScore("down")}
+          />
           {post.score}
-          <BsHandThumbsUp />
+          <BsHandThumbsUp
+            className={thumbsUp ? styles.thumbsUp : ""}
+            onClick={() => handleClickScore("up")}
+          />
         </div>
         <button className={styles.comments} onClick={handleCommentsClick}>
           <FaRegComment />
