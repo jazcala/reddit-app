@@ -40,6 +40,9 @@ export default function Post({ post }: { post: postProps }) {
       )}
       <h3>{post.title}</h3>
       <p>{post.description}</p>
+      <p className={styles.more}>
+        <a href={post.url}>view article</a>
+      </p>
       <div className={styles.bottom}>
         <div className={styles.author}>
           By <a href="#">{post.author}</a>

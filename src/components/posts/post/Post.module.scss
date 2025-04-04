@@ -28,9 +28,24 @@
 
   h3 {
     line-height: 1.5;
-    margin: 15px;
+    margin-top: 15px;
     width: 90%;
     text-align: start;
+  }
+
+  .more {
+    width: 90%;
+    text-align: end;
+    margin-bottom: 15px;
+
+    a {
+      color: index.$primary-color;
+      text-decoration: none;
+
+      &:hover {
+        color: index.$primary-color;
+      }
+    }
   }
 
   .bottom {
