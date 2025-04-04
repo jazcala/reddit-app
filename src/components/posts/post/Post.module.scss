@@ -76,6 +76,14 @@
       &:hover {
         color: index.$primary-color;
       }
+
+      &.thumbsUp {
+        color: index.$success-color;
+      }
+
+      &.thumbsDown {
+        color: index.$danger-color;
+      }
     }
 
     .author a {
