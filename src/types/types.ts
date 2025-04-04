@@ -3,9 +3,7 @@ export interface subredditProps {
   id: string;
   name: string;
   display_name: string;
-  title: string;
-  url: string;
-  subreddit_type: "public" | "restricted" | "private" | "gold_only" | "archived" | "employees_only";
+  icon_img: string;
 }
 
 export interface SubredditResponse {
