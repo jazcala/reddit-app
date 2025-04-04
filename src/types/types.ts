@@ -18,6 +18,8 @@ export interface subredditsSliceInitialStateProps {
   status: string;
   error: string;
 }
+
+// Posts
 export interface postProps {
   id: string;
   title: string;
@@ -40,7 +42,6 @@ export interface postSliceInitialStateProps {
   query: string;
 }
 
-// Api
 export interface PostResponse {
   data: {
     children: Array<{
@@ -55,4 +56,24 @@ export interface SearchPostResponse {
       data: postProps;
     }>;
   };
+}
+
+// Comments
+export interface CommentProps {
+  id: string;
+  body: string;
+  author: string;
+}
+
+export interface CommentResponse {
+  data: {
+    children: Array<{
+      data: CommentProps;
+    }>;
+  };
+}
+export interface commentsSliceInitialStateProps {
+  commentsByPostId: Record<string, CommentProps[]>;
+  status: string;
+  error: string;
 }

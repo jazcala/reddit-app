@@ -3,9 +3,7 @@
 .post {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  min-height: 200px;
   background-color: rgba(246, 237, 227, 0.1);
   width: 100%;
   border: 1px solid index.$primary-color;
@@ -14,11 +12,25 @@
   border-right: none;
   margin: 20px 0;
 
-  img {
+  img,
+  .noImage {
     width: 90%;
     min-width: 200px;
-    height: auto;
     padding: 10px;
+    margin: 2rem 0 auto;
+  }
+
+  .noImage {
+    min-height: 200px;
+    background-color: index.$dark-color;
+    border-radius: 5px;
+  }
+
+  h3 {
+    line-height: 1.5;
+    margin: 15px;
+    width: 90%;
+    text-align: start;
   }
 
   .bottom {
@@ -28,11 +40,21 @@
     border-top: 1px index.$primary-color solid;
     width: 97%;
 
-    .comments {
+    button.comments {
       cursor: pointer;
+      background-color: transparent;
+      border: none;
+
+      &:hover {
+        color: index.$primary-color;
+      }
+
+      svg {
+        margin: 0 10px;
+      }
     }
 
-    svg {
+    .score svg {
       margin: 0 10px;
       cursor: pointer;
 
