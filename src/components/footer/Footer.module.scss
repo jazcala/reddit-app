@@ -1,7 +1,7 @@
 @use "@/index.scss";
 
 .footer {
-  background-color: index.$dark-color;
+  background-color: rgba(52, 58, 64, 0.8);
   width: 100%;
   position: fixed;
   bottom: 0;
@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 2rem;
+  height: 2.5rem;
 
   a {
     color: index.$primary-color;
@@ -21,8 +21,12 @@
 
 }
 
-@media (prefer-color-scheme : light) {
+@media (prefers-color-scheme: light) {
   .footer {
-    background-color: index.$light-color;
+    background-color: rgba(246,
+        237,
+        227, 0.8);
+    color: index.$dark-color;
+
   }
 }

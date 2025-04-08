@@ -42,7 +42,7 @@ export const fetchPostById = createAsyncThunk(
 
 export const fetchSearchResults = createAsyncThunk(
   "search/fetchSearchResults",
-  async (query) => {
+  async (query: string) => {
     const response = await fetch(
       `https://www.reddit.com/search.json?q=${query}&limit=10`
     );

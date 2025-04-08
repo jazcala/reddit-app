@@ -12,14 +12,14 @@ import Post from "./post/Post";
 
 export default function Posts() {
   // states
-  const { posts, status, error } = useSelector(
+  const { posts, status, error, query } = useSelector(
     (state: { posts: postSliceInitialStateProps }) => state.posts
   );
   const dispatch = useDispatch<AppDispatch>();
   // Fetch posts from the API
   useEffect(() => {
     dispatch(fetchPosts("all"));
-  }, [dispatch]);
+  }, [dispatch, query]);
 
   return (
     <section id="posts" className={styles.posts}>
