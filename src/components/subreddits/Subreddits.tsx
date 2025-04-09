@@ -28,14 +28,13 @@ export default function Subreddits() {
     dispatch(fetchSubreddits());
   }, [dispatch]);
 
-  if (status === "failed") {
-    return (
-      <div>
-        <p>Error loading subreddits: </p>
-        <p>{error}</p>
-      </div>
-    );
-  }
+  const statusSubreddits = () => {
+    if (status === "loading") {
+      return <p>Loading...</p>;
+    } else if (status === "failed") {
+      return <p>Error loading subreddits: {error}</p>;
+    }
+  };
 
   /* Toogle open, close side navigation */
   function toogleNav() {
@@ -71,18 +70,16 @@ export default function Subreddits() {
         </button>
         <h2>Subreddits</h2>
         <ul>
-          {status === "loading" ? (
-            <p>Loading subreddits...</p>
-          ) : (
-            subreddits.map((subreddit: subredditProps, index: number) => (
-              <Subreddit
-                key={index}
-                subreddit={subreddit}
-                handleSubreddit={handleSubreddit}
-                selectedSubreddit={selectedSubreddit}
-              />
-            ))
-          )}
+          {status === "loading" || status === "failed"
+            ? statusSubreddits()
+            : subreddits.map((subreddit: subredditProps, index: number) => (
+                <Subreddit
+                  key={index}
+                  subreddit={subreddit}
+                  handleSubreddit={handleSubreddit}
+                  selectedSubreddit={selectedSubreddit}
+                />
+              ))}
         </ul>
       </aside>
       <button className={styles.filterBtn} onClick={toogleNav}>
