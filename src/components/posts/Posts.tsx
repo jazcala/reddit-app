@@ -21,13 +21,19 @@ export default function Posts() {
     dispatch(fetchPosts("all"));
   }, [dispatch, query]);
 
+  const statusElement = () => {
+    if (status === "loading") {
+      return <p>Loading...</p>;
+    } else if (status === "failed") {
+      return <p>Error loading posts: {error}</p>;
+    }
+  };
+
   return (
     <section id="posts" className={styles.posts}>
-      {status === "loading" && <p>Loading...</p>}
-      {status === "failed" && <p>Error loading posts: {error}</p>}
-      {posts.map((post, index) => (
-        <Post key={index} post={post} />
-      ))}
+      {status === "Loading" || status === "failed"
+        ? statusElement()
+        : posts.map((post, index) => <Post key={index} post={post} />)}
     </section>
   );
 }

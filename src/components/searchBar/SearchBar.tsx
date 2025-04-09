@@ -1,14 +1,24 @@
 import { FaSearch } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
 import { AppDispatch } from "../../app/store";
 import styles from "./SearchBar.module.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchSearchResults } from "../../api/api";
 import { setQuery } from "../../features/posts/postsSlice";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { postSliceInitialStateProps } from "../../types/types";
 
 export default function SearchBar() {
+  const { query } = useSelector(
+    (state: { posts: postSliceInitialStateProps }) => state.posts
+  );
+
   const dispatch = useDispatch<AppDispatch>();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(query);
+
+  useEffect(() => {
+    setSearchQuery(query);
+  }, [query]);
 
   const search = () => {
     const query = searchQuery.trim();
@@ -28,6 +38,12 @@ export default function SearchBar() {
     e.preventDefault();
     search();
   };
+
+  const clearSearchField = () => {
+    setSearchQuery("");
+    dispatch(setQuery(""));
+  };
+
   return (
     <section className={styles.searchBar}>
       <div>
@@ -40,7 +56,16 @@ export default function SearchBar() {
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={handleInputKeyDown}
         />
-        <button onClick={handleSearch} type="submit">
+        {searchQuery.length > 0 && (
+          <button className={styles.cancelButton} onClick={clearSearchField}>
+            <MdCancel />
+          </button>
+        )}
+        <button
+          className={styles.searchButton}
+          onClick={handleSearch}
+          type="submit"
+        >
           <FaSearch data-testid="search-icon" />
         </button>
       </div>

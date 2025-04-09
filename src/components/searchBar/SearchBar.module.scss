@@ -12,6 +12,9 @@
   div {
     position: relative;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 
     input {
       width: 100%;
@@ -25,16 +28,24 @@
 
     button {
       position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      border-radius: 5px;
-      background-color: index.$primary-color;
-      color: index.$light-color;
-      width: 15%;
       border: 0;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
+      height: 100%;
+
+      &.cancelButton {
+        margin-right: 15%;
+        padding: 0.5rem;
+        background-color: transparent;
+        color: index.$placeholder-color;
+      }
+
+      &.searchButton {
+        width: 15%;
+        border-radius: 5px;
+        background-color: index.$primary-color;
+        color: index.$light-color;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
 
       svg {
         font-size: 1.2rem;
