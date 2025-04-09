@@ -12,6 +12,7 @@ import {
 } from "../../types/types";
 
 import Subreddit from "./subreddit/Subreddit";
+import { setQuery } from "../../features/posts/postsSlice";
 
 export default function Subreddits() {
   // states
@@ -51,6 +52,7 @@ export default function Subreddits() {
   const handleSubreddit = (selected: string) => {
     setSelectedSubreddit(selected);
     dispatch(fetchPosts(selectedSubreddit));
+    dispatch(setQuery(""));
     setMySidenavStyle({ width: "0" });
   };
   return (
