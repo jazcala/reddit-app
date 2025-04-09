@@ -3,7 +3,7 @@ import styles from "./Subreddits.module.scss";
 import { FaBars } from "react-icons/fa";
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSubreddits } from "../../api/api";
+import { fetchSubreddits, fetchPosts } from "../../api/api";
 import { AppDispatch } from "../../app/store";
 // types
 import {
@@ -50,7 +50,8 @@ export default function Subreddits() {
   }
   const handleSubreddit = (selected: string) => {
     setSelectedSubreddit(selected);
-    // dispatch(fetchPosts(selectedSubreddit));
+    dispatch(fetchPosts(selectedSubreddit));
+    setMySidenavStyle({ width: "0" });
   };
   return (
     <>
@@ -59,14 +60,13 @@ export default function Subreddits() {
         id="mySidenav"
         style={mySidenavStyle}
       >
-        <a
-          href="#"
+        <button
           className={styles.closebtn}
           onClick={closeNav}
           aria-label="close"
         >
           &times;
-        </a>
+        </button>
         <h2>Subreddits</h2>
         <ul>
           {status === "loading" ? (

@@ -2,49 +2,58 @@
 
 li.subreddit {
   border-bottom: index.$primary-color 1px solid;
-  padding: 8px 10px;
-  line-height: 1.5;
-  display: flex;
-  justify-content: flex-start;
-  align-content: center;
 
   &.active {
-    color: index.$primary-color;
-    background-color: rgba(246, 237, 227, 0.1);
+    background-color: index.$secondary-color;
+
+    button span {
+      color: index.$primary-color;
+    }
+
   }
 
-  img,
-  svg {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-right: 10px;
-  }
-
-  img {
-    border-radius: 50px;
-  }
-
-  svg {
-    font-size: 1.5rem;
-  }
-
-  &:last-child {
-    border-bottom: 0;
-  }
-
-  .name {
+  button {
+    border: none;
     display: flex;
-    justify-items: center;
-    text-transform: capitalize;
-    font-size: 0.9rem;
-  }
+    justify-content: flex-start;
+    align-content: center;
+    padding: 8px 10px;
+    line-height: 1.5;
+    background-color: transparent;
 
+    img,
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: 10px;
+    }
+
+    img {
+      border-radius: 50px;
+    }
+
+    svg {
+      font-size: 1.5rem;
+    }
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    .name {
+      display: flex;
+      justify-items: center;
+      text-transform: capitalize;
+      font-size: 0.9rem;
+      align-items: center;
+      padding: 0;
+    }
+  }
 }
 
-@media (prefers-color-scheme:light) {
-  .subreddit {
+@media (prefers-color-scheme: light) {
+  li.subreddit {
     &.active {
-      color: index.$primary-color;
       background-color: index.$light-color;
     }
   }

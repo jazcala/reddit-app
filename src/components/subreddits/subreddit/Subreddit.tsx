@@ -24,14 +24,16 @@ export default function Subreddit({
       }`}
       onClick={handleClick}
     >
-      {display_name === "all" ? (
-        <TfiReddit />
-      ) : icon_img ? (
-        <img src={icon_img} alt={`${display_name} image`} />
-      ) : (
-        <TfiReddit />
-      )}
-      <span className={styles.name}>{display_name}</span>
+      <button>
+        {display_name === "all" ? (
+          <TfiReddit />
+        ) : icon_img ? (
+          <img src={icon_img} alt={`${display_name} image`} />
+        ) : (
+          <TfiReddit />
+        )}
+        <span className={styles.name}>{display_name}</span>
+      </button>
     </li>
   );
 }
