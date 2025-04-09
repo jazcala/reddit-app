@@ -1,4 +1,5 @@
 import { FaSearch } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
 import { AppDispatch } from "../../app/store";
 import styles from "./SearchBar.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,6 +38,12 @@ export default function SearchBar() {
     e.preventDefault();
     search();
   };
+
+  const clearSearchField = () => {
+    setSearchQuery("");
+    dispatch(setQuery(""));
+  };
+
   return (
     <section className={styles.searchBar}>
       <div>
@@ -49,7 +56,16 @@ export default function SearchBar() {
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={handleInputKeyDown}
         />
-        <button onClick={handleSearch} type="submit">
+        {searchQuery.length > 0 && (
+          <button className={styles.cancelButton} onClick={clearSearchField}>
+            <MdCancel />
+          </button>
+        )}
+        <button
+          className={styles.searchButton}
+          onClick={handleSearch}
+          type="submit"
+        >
           <FaSearch data-testid="search-icon" />
         </button>
       </div>
