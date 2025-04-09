@@ -3,7 +3,7 @@ import styles from "./Subreddits.module.scss";
 import { FaBars } from "react-icons/fa";
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSubreddits } from "../../api/api";
+import { fetchSubreddits, fetchPosts } from "../../api/api";
 import { AppDispatch } from "../../app/store";
 // types
 import {
@@ -15,7 +15,7 @@ import Subreddit from "./subreddit/Subreddit";
 
 export default function Subreddits() {
   // states
-  const [mySidenavStyle, setMySidenavStyle] = useState({});
+  const [mySidenavStyle, setMySidenavStyle] = useState({ width: "0" });
   const [selectedSubreddit, setSelectedSubreddit] = useState("all");
   const { subreddits, status, error } = useSelector(
     (state: { subreddits: subredditsSliceInitialStateProps }) =>
@@ -36,9 +36,13 @@ export default function Subreddits() {
     );
   }
 
-  /* Set the width of the side navigation to 250px */
-  function openNav() {
-    setMySidenavStyle({ width: "250px" });
+  /* Toogle open, close side navigation */
+  function toogleNav() {
+    if (mySidenavStyle.width === "250px") {
+      setMySidenavStyle({ width: "0" });
+    } else {
+      setMySidenavStyle({ width: "250px" });
+    }
   }
   /* Set the width of the side navigation to 0 */
   function closeNav() {
@@ -46,7 +50,8 @@ export default function Subreddits() {
   }
   const handleSubreddit = (selected: string) => {
     setSelectedSubreddit(selected);
-    // dispatch(fetchPosts(selectedSubreddit));
+    dispatch(fetchPosts(selectedSubreddit));
+    setMySidenavStyle({ width: "0" });
   };
   return (
     <>
@@ -55,14 +60,13 @@ export default function Subreddits() {
         id="mySidenav"
         style={mySidenavStyle}
       >
-        <a
-          href="#"
+        <button
           className={styles.closebtn}
           onClick={closeNav}
           aria-label="close"
         >
           &times;
-        </a>
+        </button>
         <h2>Subreddits</h2>
         <ul>
           {status === "loading" ? (
@@ -79,7 +83,7 @@ export default function Subreddits() {
           )}
         </ul>
       </aside>
-      <button className={styles.filterBtn} onClick={openNav}>
+      <button className={styles.filterBtn} onClick={toogleNav}>
         <FaBars />
       </button>
     </>
