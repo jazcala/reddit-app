@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchPostById, fetchPosts, fetchSearchResults } from "../../api/api";
-import { postSliceInitialStateProps } from "../../types/types";
+import { PostsState } from "../../types/types";
 
-const initialState: postSliceInitialStateProps = {
+const initialState: PostsState = {
   posts: [],
   status: 'idle',
   error: "",
@@ -65,7 +65,7 @@ export const postSlice = createSlice({
   },
 });
 
-export const selectPostById = (state: postSliceInitialStateProps, postId: string) =>
+export const selectPostById = (state: PostsState, postId: string) =>
   state.posts.find((post) => post.id === postId);
 
 export const { setScore,

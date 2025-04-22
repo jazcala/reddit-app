@@ -6,10 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSubreddits, fetchPosts } from "../../api/api";
 import { AppDispatch } from "../../app/store";
 // types
-import {
-  subredditProps,
-  subredditsSliceInitialStateProps,
-} from "../../types/types";
+import { SubredditProps, SubredditsState } from "../../types/types";
 
 import Subreddit from "./subreddit/Subreddit";
 import { setQuery } from "../../features/posts/postsSlice";
@@ -19,8 +16,7 @@ export default function Subreddits() {
   const [mySidenavStyle, setMySidenavStyle] = useState({ width: "0" });
   const [selectedSubreddit, setSelectedSubreddit] = useState("all");
   const { subreddits, status, error } = useSelector(
-    (state: { subreddits: subredditsSliceInitialStateProps }) =>
-      state.subreddits
+    (state: { subreddits: SubredditsState }) => state.subreddits
   );
 
   const dispatch = useDispatch<AppDispatch>();
@@ -72,7 +68,7 @@ export default function Subreddits() {
         <ul>
           {status === "loading" || status === "failed"
             ? statusSubreddits()
-            : subreddits.map((subreddit: subredditProps, index: number) => (
+            : subreddits.map((subreddit: SubredditProps, index: number) => (
                 <Subreddit
                   key={index}
                   subreddit={subreddit}

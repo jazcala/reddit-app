@@ -6,12 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSearchResults } from "../../api/api";
 import { setQuery } from "../../features/posts/postsSlice";
 import { useState, useEffect } from "react";
-import { postSliceInitialStateProps } from "../../types/types";
+import { PostsState } from "../../types/types";
 
 export default function SearchBar() {
-  const { query } = useSelector(
-    (state: { posts: postSliceInitialStateProps }) => state.posts
-  );
+  const { query } = useSelector((state: { posts: PostsState }) => state.posts);
 
   const dispatch = useDispatch<AppDispatch>();
   const [searchQuery, setSearchQuery] = useState(query);

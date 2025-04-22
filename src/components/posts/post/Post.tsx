@@ -2,10 +2,7 @@ import { useState } from "react";
 import { BsHandThumbsUp } from "react-icons/bs";
 import { BsHandThumbsDown } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa6";
-import {
-  postProps,
-  commentsSliceInitialStateProps,
-} from "../../../types/types";
+import { PostsProps, CommentsState } from "../../../types/types";
 import styles from "./Post.module.scss";
 import Comments from "./comments/Comments";
 
@@ -15,13 +12,13 @@ import { AppDispatch } from "../../../app/store";
 import { fetchComments } from "../../../api/api";
 import { setScore } from "../../../features/posts/postsSlice";
 
-export default function Post({ post }: { post: postProps }) {
+export default function Post({ post }: { post: PostsProps }) {
   const [showComments, setShowComments] = useState(false);
   const [thumbsUp, setThumbsUp] = useState(false);
   const [thumbsDown, setThumbsDown] = useState(false);
 
   const { commentsByPostId, status, error } = useSelector(
-    (state: { comments: commentsSliceInitialStateProps }) => state.comments
+    (state: { comments: CommentsState }) => state.comments
   );
   const dispatch = useDispatch<AppDispatch>();
 
@@ -110,7 +107,7 @@ export default function Post({ post }: { post: postProps }) {
         showComments={showComments}
         comments={commentsByPostId[post.id] || []}
         status={status}
-        error={error}
+        error={error || ""}
       />
     </div>
   );

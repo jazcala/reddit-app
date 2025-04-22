@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchComments } from "../../api/api";
-import { CommentProps, commentsSliceInitialStateProps } from "../../types/types";
+import { CommentProps, CommentsState } from "../../types/types";
 
-const initialState: commentsSliceInitialStateProps = {
+const initialState: CommentsState = {
   commentsByPostId: {},
   status: "idle",
   error: "",
