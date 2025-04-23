@@ -1,20 +1,24 @@
-import { useEffect, useState } from "react";
-import styles from "./Subreddits.module.scss";
+import React, { useEffect, useState } from "react";
+import styles from "../components/subreddits/Subreddits.module.scss";
 import { FaBars } from "react-icons/fa";
 // redux
-import { useDispatch, useSelector } from "react-redux";
-import { fetchSubreddits, fetchPosts } from "../../api/api";
-import { AppDispatch } from "../../app/store";
+import { useSelector } from "react-redux";
+import { fetchSubreddits, fetchPosts } from "../api/api";
+import { AppDispatch } from "../app/store";
 // types
-import { SubredditProps, SubredditsState } from "../../types/types";
+import { SubredditProps, SubredditsState } from "../types/types";
 
-import Subreddit from "./subreddit/Subreddit";
-import { setQuery } from "../../features/posts/postsSlice";
+import Subreddit from "../components/subreddits/subreddit/Subreddit";
+import { setQuery } from "../features/posts/postsSlice";
+
+interface MockSubredditsProps {
+  mockDispatch: AppDispatch;
+}
 
 const loading = "loading";
 const failed = "failed";
 
-export default function Subreddits() {
+const MyMockSubreddits: React.FC<MockSubredditsProps> = ({ mockDispatch }) => {
   // states
   const [mySidenavStyle, setMySidenavStyle] = useState({ width: "0" });
   const [selectedSubreddit, setSelectedSubreddit] = useState("all");
@@ -22,7 +26,7 @@ export default function Subreddits() {
     (state: { subreddits: SubredditsState }) => state.subreddits
   );
 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = mockDispatch;
   useEffect(() => {
     dispatch(fetchSubreddits());
   }, [dispatch]);
@@ -73,7 +77,7 @@ export default function Subreddits() {
         </button>
         <h2>Subreddits</h2>
         <ul>
-          {status === loading || status === failed
+          {status === "loading" || status === "failed"
             ? statusSubreddits()
             : subreddits.map((subreddit: SubredditProps, index: number) => (
                 <Subreddit
@@ -90,4 +94,6 @@ export default function Subreddits() {
       </button>
     </>
   );
-}
+};
+
+export default MyMockSubreddits;

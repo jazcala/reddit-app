@@ -1,56 +1,20 @@
 import { expect, test, describe, vi, afterEach } from "vitest";
 import { screen, render } from "@testing-library/react";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { useEffect } from "react";
+
+import MyMockPosts from "../../mocks/posts.mock";
+import { mockPosts } from "../../mocks/redditAPI.mock";
+
+// Reducers
 import postsReducer from "../../features/posts/postsSlice";
 import commentsReducer from "../../features/comments/commentsSlice";
-import { AppDispatch } from "../../app/store";
-import { mockPosts } from "../../mocks/redditAPI.mock";
-import { PostsState } from "../../types/types";
-import styles from "./Posts.module.scss";
-import Post from "./post/Post";
-import { fetchPosts } from "../../api/api";
+import { Loading, Idle, Succeeded, Failed } from "../../types/types";
 
-type succeeded = "succeeded";
-type loading = "loading";
-type idle = "idle";
-type failed = "failed";
-
-// Mock Post component
-const MockPosts = ({ mockDispatch }: { mockDispatch: AppDispatch }) => {
-  const { posts, status, error, query } = useSelector(
-    (state: { posts: PostsState }) => state.posts
-  );
-  const dispatch = mockDispatch;
-  useEffect(() => {
-    dispatch(fetchPosts("all"));
-  }, [dispatch, query]);
-
-  const statusElement = () => {
-    if (status === "loading") {
-      return <p data-testid="loading_posts">Loading...</p>;
-    }
-    if (status === "failed") {
-      return <p data-testid="error_posts">Error loading posts: {error}</p>;
-    }
-    return null;
-  };
-
-  return (
-    <section id="posts" className={styles.posts}>
-      {status === "loading" || status === "failed"
-        ? statusElement()
-        : posts.map((post, index) => (
-            <Post
-              data-testid={`post_${index}_${post.title}`}
-              key={index}
-              post={post}
-            />
-          ))}
-    </section>
-  );
-};
+const idle = "idle";
+const loading = "loading";
+const failed = "failed";
+const succeeded = "succeeded";
 
 describe("Posts", () => {
   afterEach(() => {
@@ -62,13 +26,13 @@ describe("Posts", () => {
     const preloadedState = {
       posts: {
         posts: [],
-        status: "loading" as loading,
+        status: loading as Loading,
         error: "",
         query: "",
       },
       comments: {
         commentsByPostId: {},
-        status: "idle" as idle,
+        status: idle as Idle,
         error: "",
       },
     };
@@ -80,10 +44,10 @@ describe("Posts", () => {
       preloadedState,
     });
 
-    expect(store.getState().posts.status).toBe("loading");
+    expect(store.getState().posts.status).toBe(loading);
     render(
       <Provider store={store}>
-        <MockPosts mockDispatch={mockDispatch} />
+        <MyMockPosts mockDispatch={mockDispatch} />
       </Provider>
     );
     const loadingElement = await screen.findByTestId("loading_posts");
@@ -96,13 +60,13 @@ describe("Posts", () => {
     const preloadedState = {
       posts: {
         posts: [],
-        status: "failed" as failed,
+        status: failed as Failed,
         error: "Error loading posts",
         query: "",
       },
       comments: {
         commentsByPostId: {},
-        status: "idle" as idle,
+        status: idle as Idle,
         error: "",
       },
     };
@@ -113,10 +77,10 @@ describe("Posts", () => {
       },
       preloadedState,
     });
-    expect(store.getState().posts.status).toBe("failed");
+    expect(store.getState().posts.status).toBe(failed);
     render(
       <Provider store={store}>
-        <MockPosts mockDispatch={mockDispatch} />
+        <MyMockPosts mockDispatch={mockDispatch} />
       </Provider>
     );
     // screen.debug(); // <--- Inspect the initial DOM
@@ -132,13 +96,13 @@ describe("Posts", () => {
     const preloadedState = {
       posts: {
         posts: mockPosts.data.children.map((child) => child.data),
-        status: "succeeded" as succeeded,
+        status: succeeded as Succeeded,
         error: "",
         query: "",
       },
       comments: {
         commentsByPostId: {},
-        status: "idle" as idle,
+        status: idle as Idle,
         error: "",
       },
     };
@@ -151,7 +115,7 @@ describe("Posts", () => {
     });
     render(
       <Provider store={storeWithDetails}>
-        <MockPosts mockDispatch={mockDispatch} />
+        <MyMockPosts mockDispatch={mockDispatch} />
       </Provider>
     );
     // screen.debug(); // <--- Inspect the initial DOM
@@ -159,6 +123,6 @@ describe("Posts", () => {
       mockPosts.data.children[0].data.title
     );
     expect(postTitleElement).toBeInTheDocument();
-    expect(storeWithDetails.getState().posts.status).toBe("succeeded");
+    expect(storeWithDetails.getState().posts.status).toBe(succeeded);
   });
 });

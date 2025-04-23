@@ -1,3 +1,8 @@
+export type Succeeded = "succeeded";
+export type Loading = "loading";
+export type Idle = "idle";
+export type Failed = "failed";
+
 // Subreddits
 export interface SubredditProps {
   id: string;
@@ -16,7 +21,7 @@ export interface SubredditResponse {
 
 export interface SubredditsState {
   subreddits: SubredditProps[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  status: Idle | Loading | Succeeded | Failed;
   error: string | null;
 }
 
@@ -38,7 +43,7 @@ export interface PostsProps {
 
 export interface PostsState {
   posts: PostsProps[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  status: Idle | Loading | Succeeded | Failed;
   error: string | null;
   query: string;
 }
@@ -75,6 +80,6 @@ export interface CommentResponse {
 }
 export interface CommentsState {
   commentsByPostId: Record<string, CommentProps[]>;
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  status: Idle | Loading | Succeeded | Failed;
   error: string | null;
 }
