@@ -27,7 +27,6 @@ export const commentsSlice = createSlice({
       .addCase(fetchComments.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error?.message || "Fetch comments failed";
-        console.log("Fetching comment failed", action.error);
       });
   },
 });
