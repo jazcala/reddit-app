@@ -12,9 +12,10 @@ import MyMockSubreddits from "../../mocks/subreddits.mock";
 import subredditsReducer from "../../features/subreddits/subredditsSlice";
 
 // types
-import { Idle, Loading } from "../../types/types";
+import { Idle, Loading, Failed } from "../../types/types";
 const idle = "idle";
 const loading = "loading";
+const failed = "failed";
 
 describe("Subredits", () => {
   afterEach(() => {
@@ -73,10 +74,40 @@ describe("Subredits", () => {
     screen.debug();
     const loadingElement = await screen.findByTestId("loading_subreddits");
     expect(loadingElement).toBeInTheDocument();
-    // expect(loadingElement).toHaveTextContent("Loading...");
-    // expect(loadingElement).toBeVisible();
+    expect(loadingElement).toHaveTextContent("Loading...");
+    expect(loadingElement).toBeVisible();
   });
   test("should render error state", async () => {
-    expect(true).toBe(false);
+    const mockDispatch = vi.fn();
+    const preloadedState = {
+      subreddits: {
+        subreddits: [],
+        status: failed as Failed,
+        error: "some error",
+      },
+    };
+    const store = configureStore({
+      reducer: {
+        subreddits: subredditsReducer,
+      },
+      preloadedState,
+    });
+    const status = store.getState().subreddits.status;
+    expect(status).toBe(failed);
+
+    render(
+      <Provider store={store}>
+        <MyMockSubreddits mockDispatch={mockDispatch} />
+      </Provider>
+    );
+    screen.debug();
+    const errorElement = await screen.findByTestId("error_subreddits");
+    expect(errorElement).toBeInTheDocument();
+    const error = store.getState().subreddits.error;
+
+    expect(errorElement).toHaveTextContent(
+      `Error loading subreddits: ${error}`
+    );
+    expect(errorElement).toBeVisible();
   });
 });

@@ -30,7 +30,7 @@ export const subredditsSlice = createSlice({
       })
       .addCase(fetchSubreddits.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error?.message ?? "Fetch subreddits failed";
+        state.error = action.error?.message || "Fetch subreddits failed";
       });
   },
 })
