@@ -4,18 +4,18 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 
 // Components
-// import Subreddits from "./Subreddits";
 import MyMockSubreddits from "../../mocks/subreddits.mock";
-// import { mockSubreddits } from "../../mocks/redditAPI.mock";
 
 // Reducers
 import subredditsReducer from "../../features/subreddits/subredditsSlice";
 
 // types
-import { Idle, Loading, Failed } from "../../types/types";
+import { Idle, Loading, Failed, Succeeded } from "../../types/types";
+import { mockSubreddits } from "../../mocks/redditAPI.mock";
 const idle = "idle";
 const loading = "loading";
 const failed = "failed";
+const succeeded = "succeeded";
 
 describe("Subredits", () => {
   afterEach(() => {
@@ -45,7 +45,37 @@ describe("Subredits", () => {
     expect(screen.getByText("Subreddits")).toBeVisible();
   });
   test("should render subreddits", async () => {
-    expect(true).toBe(false);
+    const mockDispatch = vi.fn();
+    const preloadedState = {
+      subreddits: {
+        subreddits: mockSubreddits.data.children.map((child) => child.data),
+        status: succeeded as Succeeded,
+        error: "",
+      },
+    };
+    const store = configureStore({
+      reducer: {
+        subreddits: subredditsReducer,
+      },
+      preloadedState,
+    });
+
+    expect(store.getState().subreddits.status).toBe(succeeded);
+
+    render(
+      <Provider store={store}>
+        <MyMockSubreddits mockDispatch={mockDispatch} />
+      </Provider>
+    );
+    screen.debug();
+    const subredditElem = await screen.findByText(
+      mockSubreddits.data.children[0].data.display_name
+    );
+    expect(subredditElem).toBeInTheDocument();
+    expect(subredditElem).toHaveTextContent(
+      mockSubreddits.data.children[0].data.display_name
+    );
+    expect(subredditElem).toBeVisible();
   });
 
   test("should render loading state", async () => {
@@ -71,12 +101,13 @@ describe("Subredits", () => {
         <MyMockSubreddits mockDispatch={mockDispatch} />
       </Provider>
     );
-    screen.debug();
+    // screen.debug();
     const loadingElement = await screen.findByTestId("loading_subreddits");
     expect(loadingElement).toBeInTheDocument();
     expect(loadingElement).toHaveTextContent("Loading...");
     expect(loadingElement).toBeVisible();
   });
+
   test("should render error state", async () => {
     const mockDispatch = vi.fn();
     const preloadedState = {
@@ -100,7 +131,7 @@ describe("Subredits", () => {
         <MyMockSubreddits mockDispatch={mockDispatch} />
       </Provider>
     );
-    screen.debug();
+    // screen.debug();
     const errorElement = await screen.findByTestId("error_subreddits");
     expect(errorElement).toBeInTheDocument();
     const error = store.getState().subreddits.error;
