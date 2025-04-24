@@ -67,7 +67,7 @@ describe("Subredits", () => {
         <MyMockSubreddits mockDispatch={mockDispatch} />
       </Provider>
     );
-    screen.debug();
+    // screen.debug();
     const subredditElem = await screen.findByText(
       mockSubreddits.data.children[0].data.display_name
     );

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { PostsState } from "../types/types";
-import styles from "../components/Posts/Posts.module.scss";
+import styles from "../components/posts/Posts.module.scss";
 import { fetchPosts } from "../api/api";
 import Post from "../components/posts/post/Post";
 
