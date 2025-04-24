@@ -1,5 +1,10 @@
+export type Succeeded = "succeeded";
+export type Loading = "loading";
+export type Idle = "idle";
+export type Failed = "failed";
+
 // Subreddits
-export interface subredditProps {
+export interface SubredditProps {
   id: string;
   name: string;
   display_name: string;
@@ -7,18 +12,21 @@ export interface subredditProps {
 }
 
 export interface SubredditResponse {
-  kind: string;
-  data: subredditProps;
+  data: {
+    children: Array<{
+      data: SubredditProps;
+    }>;
+  };
 }
 
-export interface subredditsSliceInitialStateProps {
-  subreddits: subredditProps[];
-  status: string;
-  error: string;
+export interface SubredditsState {
+  subreddits: SubredditProps[];
+  status: Idle | Loading | Succeeded | Failed;
+  error: string | null;
 }
 
 // Posts
-export interface postProps {
+export interface PostsProps {
   id: string;
   title: string;
   author: string;
@@ -33,17 +41,17 @@ export interface postProps {
   icon_img: string;
 }
 
-export interface postSliceInitialStateProps {
-  posts: postProps[];
-  status: string;
-  error: string;
+export interface PostsState {
+  posts: PostsProps[];
+  status: Idle | Loading | Succeeded | Failed;
+  error: string | null;
   query: string;
 }
 
 export interface PostResponse {
   data: {
     children: Array<{
-      data: postProps;
+      data: PostsProps;
     }>;
   };
 }
@@ -51,7 +59,7 @@ export interface PostResponse {
 export interface SearchPostResponse {
   data: {
     children: Array<{
-      data: postProps;
+      data: PostsProps;
     }>;
   };
 }
@@ -70,8 +78,8 @@ export interface CommentResponse {
     }>;
   };
 }
-export interface commentsSliceInitialStateProps {
+export interface CommentsState {
   commentsByPostId: Record<string, CommentProps[]>;
-  status: string;
-  error: string;
+  status: Idle | Loading | Succeeded | Failed;
+  error: string | null;
 }

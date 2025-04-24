@@ -1,76 +1,144 @@
+import { expect, test, describe, afterEach, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { expect, test, describe } from "vitest";
-import Subreddits from "./Subreddits";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 
-// Import reducers
-import subredditsReducer from "../../features/subreddits/subredditsSlice";
-import postsReducer from "../../features/posts/postsSlice";
-import commentsReducer from "../../features/comments/commentsSlice";
+// Components
+import MyMockSubreddits from "../../mocks/subreddits.mock";
 
-const createTestStore = () =>
-  // initialState
-  {
-    return configureStore({
+// Reducers
+import subredditsReducer from "../../features/subreddits/subredditsSlice";
+
+// types
+import { Idle, Loading, Failed, Succeeded } from "../../types/types";
+import { mockSubreddits } from "../../mocks/redditAPI.mock";
+const idle = "idle";
+const loading = "loading";
+const failed = "failed";
+const succeeded = "succeeded";
+
+describe("Subredits", () => {
+  afterEach(() => {
+    vi.restoreAllMocks(); // Or vi.resetAllMocks()
+  });
+  test("should have reddits as title", () => {
+    const preloadedState = {
+      subreddits: {
+        subreddits: [],
+        status: idle as Idle,
+        error: "",
+      },
+    };
+
+    const testStore = configureStore({
       reducer: {
         subreddits: subredditsReducer,
-        posts: postsReducer,
-        comments: commentsReducer,
       },
-      // preloadedState: initialState,
+      preloadedState: preloadedState,
     });
-  };
 
-describe("Subredit List", () => {
-  test("should have subreddit as title", async () => {
-    // const initialState = {
-    //   posts: {
-    //     posts: [],
-    //     status: "idle",
-    //     error: "",
-    //     query: "",
-    //   },
-    //   subreddits: {
-    //     subreddits: [
-    //       {
-    //         id: "1",
-    //         name: "mario",
-    //         display_name: "Mario",
-    //         icon_img: "https://www.reddit.com/r/mario/",
-    //       },
-    //       {
-    //         id: "2",
-    //         name: "luigi",
-    //         display_name: "Luigi",
-    //         icon_img: "https://www.reddit.com/r/luigi/",
-    //       },
-    //       {
-    //         id: "3",
-    //         name: "peach",
-    //         display_name: "Peach",
-    //         icon_img: "https://www.reddit.com/r/peach/",
-    //       },
-    //     ],
-    //     status: "succeeded",
-    //     error: "",
-    //   },
+    render(
+      <Provider store={testStore}>
+        <MyMockSubreddits mockDispatch={vi.fn()} />
+      </Provider>
+    );
+    expect(screen.getByText("Subreddits")).toBeVisible();
+  });
+  test("should render subreddits", async () => {
+    const mockDispatch = vi.fn();
+    const preloadedState = {
+      subreddits: {
+        subreddits: mockSubreddits.data.children.map((child) => child.data),
+        status: succeeded as Succeeded,
+        error: "",
+      },
+    };
+    const store = configureStore({
+      reducer: {
+        subreddits: subredditsReducer,
+      },
+      preloadedState,
+    });
 
-    //   comments: {
-    //     commentsByPostId: {},
-    //     status: "idle",
-    //     error: "",
-    //   },
-    // };
-
-    // const store = createTestStore(initialState);
-    const store = createTestStore();
+    expect(store.getState().subreddits.status).toBe(succeeded);
 
     render(
       <Provider store={store}>
-        <Subreddits />
+        <MyMockSubreddits mockDispatch={mockDispatch} />
       </Provider>
     );
-    await expect(screen.getByText("Subreddits")).toBeVisible();
+    // screen.debug();
+    const subredditElem = await screen.findByText(
+      mockSubreddits.data.children[0].data.display_name
+    );
+    expect(subredditElem).toBeInTheDocument();
+    expect(subredditElem).toHaveTextContent(
+      mockSubreddits.data.children[0].data.display_name
+    );
+    expect(subredditElem).toBeVisible();
+  });
+
+  test("should render loading state", async () => {
+    const mockDispatch = vi.fn();
+    const preloadedState = {
+      subreddits: {
+        subreddits: [],
+        status: loading as Loading,
+        error: "",
+      },
+    };
+    const store = configureStore({
+      reducer: {
+        subreddits: subredditsReducer,
+      },
+      preloadedState,
+    });
+
+    expect(store.getState().subreddits.status).toBe(loading);
+
+    render(
+      <Provider store={store}>
+        <MyMockSubreddits mockDispatch={mockDispatch} />
+      </Provider>
+    );
+    // screen.debug();
+    const loadingElement = await screen.findByTestId("loading_subreddits");
+    expect(loadingElement).toBeInTheDocument();
+    expect(loadingElement).toHaveTextContent("Loading...");
+    expect(loadingElement).toBeVisible();
+  });
+
+  test("should render error state", async () => {
+    const mockDispatch = vi.fn();
+    const preloadedState = {
+      subreddits: {
+        subreddits: [],
+        status: failed as Failed,
+        error: "some error",
+      },
+    };
+    const store = configureStore({
+      reducer: {
+        subreddits: subredditsReducer,
+      },
+      preloadedState,
+    });
+    const status = store.getState().subreddits.status;
+    expect(status).toBe(failed);
+
+    render(
+      <Provider store={store}>
+        <MyMockSubreddits mockDispatch={mockDispatch} />
+      </Provider>
+    );
+    // screen.debug();
+    const errorElement = await screen.findByTestId("error_subreddits");
+    expect(errorElement).toBeInTheDocument();
+    const error = store.getState().subreddits.error;
+
+    expect(errorElement).toHaveTextContent(
+      `Error loading subreddits: ${error}`
+    );
+    expect(errorElement).toBeVisible();
   });
 });

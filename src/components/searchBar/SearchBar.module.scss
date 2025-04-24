@@ -24,6 +24,10 @@
       line-height: 1;
       border-radius: 5px;
       border-color: index.$primary-color;
+
+      &:focus {
+        outline: none;
+      }
     }
 
     button {

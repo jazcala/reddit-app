@@ -1,5 +1,5 @@
 import { TfiReddit } from "react-icons/tfi";
-import { subredditProps } from "../../../types/types";
+import { SubredditProps } from "../../../types/types";
 import styles from "./Subreddit.module.scss";
 
 export default function Subreddit({
@@ -7,7 +7,7 @@ export default function Subreddit({
   handleSubreddit,
   selectedSubreddit,
 }: {
-  subreddit: subredditProps;
+  subreddit: SubredditProps;
   handleSubreddit: (subredditName: string) => void;
   selectedSubreddit: string;
 }) {

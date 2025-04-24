@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchSubreddits } from "../../api/api";
-import { subredditsSliceInitialStateProps } from '../../types/types'
+import { SubredditsState } from '../../types/types'
 
-const initialState: subredditsSliceInitialStateProps = {
+const initialState: SubredditsState = {
   subreddits: [],
   status: "idle",
   error: "",
@@ -30,7 +30,7 @@ export const subredditsSlice = createSlice({
       })
       .addCase(fetchSubreddits.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error?.message ?? "Fetch subreddits failed";
+        state.error = action.error?.message || "Fetch subreddits failed";
       });
   },
 })
