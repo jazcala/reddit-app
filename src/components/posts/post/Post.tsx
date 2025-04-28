@@ -80,7 +80,9 @@ export default function Post({ post }: { post: PostsProps }) {
       <h3>{post.title}</h3>
       <p>{post.description}</p>
       <p className={styles.more}>
-        <a href={post.url}>view article</a>
+        <a href={post.url} target="_blank">
+          view article
+        </a>
       </p>
       <div className={styles.bottom}>
         <div className={styles.author}>
@@ -103,7 +105,6 @@ export default function Post({ post }: { post: PostsProps }) {
         </button>
       </div>
       <Comments
-        post={post}
         showComments={showComments}
         comments={commentsByPostId[post.id] || []}
         status={status}
