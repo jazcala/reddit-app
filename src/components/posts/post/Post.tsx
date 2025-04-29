@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { BsHandThumbsUp } from "react-icons/bs";
-import { BsHandThumbsDown } from "react-icons/bs";
+import { BsHandThumbsUp, BsHandThumbsDown } from "react-icons/bs";
 import { FaRegComment } from "react-icons/fa6";
 import { PostsProps, CommentsState } from "../../../types/types";
 import styles from "./Post.module.scss";
@@ -75,12 +74,7 @@ export default function Post({ post }: { post: PostsProps }) {
   return (
     <div className={styles.post}>
       {isImage ? (
-        <img
-          src={post.url}
-          alt={`Image of ${post.title}`}
-          loading="lazy"
-          decoding="async"
-        />
+        <img src={post.url} alt={`Image of ${post.title}`} decoding="async" />
       ) : (
         <div className={styles.noImage}></div>
       )}
