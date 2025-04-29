@@ -24,7 +24,7 @@ export default function Subreddit({
       }`}
       onClick={handleClick}
     >
-      <button>
+      <button aria-label="select reddits">
         {display_name === "all" ? (
           <TfiReddit />
         ) : icon_img ? (

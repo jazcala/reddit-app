@@ -55,7 +55,11 @@ export default function SearchBar() {
           onKeyDown={handleInputKeyDown}
         />
         {searchQuery.length > 0 && (
-          <button className={styles.cancelButton} onClick={clearSearchField}>
+          <button
+            className={styles.cancelButton}
+            onClick={clearSearchField}
+            aria-label="clear search input"
+          >
             <MdCancel />
           </button>
         )}
@@ -63,6 +67,7 @@ export default function SearchBar() {
           className={styles.searchButton}
           onClick={handleSearch}
           type="submit"
+          aria-label="search"
         >
           <FaSearch data-testid="search-icon" />
         </button>
