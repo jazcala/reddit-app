@@ -68,12 +68,19 @@ export default function Post({ post }: { post: PostsProps }) {
       setThumbsDown(newThumbsDown);
     }
   };
+  const imageExtensions = ["jpg", "png", "jpeg", "WebP", "AVIF"];
+  const isImage = imageExtensions.some((extension) =>
+    post.url.includes(extension)
+  );
   return (
     <div className={styles.post}>
-      {post.url.includes("jpg") ||
-      post.url.includes("png") ||
-      post.url.includes("jpeg") ? (
-        <img src={post.url} alt={`Image of ${post.title}`} />
+      {isImage ? (
+        <img
+          src={post.url}
+          alt={`Image of ${post.title}`}
+          loading="lazy"
+          decoding="async"
+        />
       ) : (
         <div className={styles.noImage}></div>
       )}
@@ -99,7 +106,11 @@ export default function Post({ post }: { post: PostsProps }) {
             onClick={() => handleClickScore("up")}
           />
         </div>
-        <button className={styles.comments} onClick={handleCommentsClick}>
+        <button
+          className={styles.comments}
+          onClick={handleCommentsClick}
+          aria-label="show comments"
+        >
           <FaRegComment />
           {post.num_comments}
         </button>

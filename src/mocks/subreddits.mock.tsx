@@ -71,7 +71,7 @@ const MyMockSubreddits: React.FC<MockSubredditsProps> = ({ mockDispatch }) => {
         <button
           className={styles.closebtn}
           onClick={closeNav}
-          aria-label="close"
+          aria-label="close reddits nav"
         >
           &times;
         </button>
@@ -89,7 +89,11 @@ const MyMockSubreddits: React.FC<MockSubredditsProps> = ({ mockDispatch }) => {
               ))}
         </ul>
       </aside>
-      <button className={styles.filterBtn} onClick={toogleNav}>
+      <button
+        className={styles.filterBtn}
+        onClick={toogleNav}
+        aria-label="toggle reddits nav"
+      >
         <FaBars />
       </button>
     </>

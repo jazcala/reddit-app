@@ -67,7 +67,7 @@ export default function Subreddits() {
         <button
           className={styles.closebtn}
           onClick={closeNav}
-          aria-label="close"
+          aria-label="close reddits"
         >
           &times;
         </button>
@@ -85,7 +85,11 @@ export default function Subreddits() {
               ))}
         </ul>
       </aside>
-      <button className={styles.filterBtn} onClick={toogleNav}>
+      <button
+        className={styles.filterBtn}
+        onClick={toogleNav}
+        aria-label="toggle reddits nav"
+      >
         <FaBars />
       </button>
     </>
