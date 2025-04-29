@@ -75,7 +75,12 @@ export default function Post({ post }: { post: PostsProps }) {
   return (
     <div className={styles.post}>
       {isImage ? (
-        <img src={post.url} alt={`Image of ${post.title}`} />
+        <img
+          src={post.url}
+          alt={`Image of ${post.title}`}
+          loading="lazy"
+          decoding="async"
+        />
       ) : (
         <div className={styles.noImage}></div>
       )}
