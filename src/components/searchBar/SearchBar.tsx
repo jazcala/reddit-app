@@ -43,7 +43,7 @@ export default function SearchBar() {
   };
 
   return (
-    <section className={styles.searchBar}>
+    <section className={styles.searchBar} data-testid="search-bar">
       <div>
         <input
           type="search"
@@ -53,12 +53,14 @@ export default function SearchBar() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={handleInputKeyDown}
+          data-testid="search-input"
         />
         {searchQuery.length > 0 && (
           <button
             className={styles.cancelButton}
             onClick={clearSearchField}
             aria-label="clear search input"
+            data-testid="clear-search-input"
           >
             <MdCancel />
           </button>
@@ -68,6 +70,7 @@ export default function SearchBar() {
           onClick={handleSearch}
           type="submit"
           aria-label="search"
+          data-testid="search-button"
         >
           <FaSearch data-testid="search-icon" />
         </button>
