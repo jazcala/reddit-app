@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist",
-    "test": "vitest"
+    "test": "vitest",
+    "test:ui": "npx playwright test -ui",
+    "test:ui:report": " npx playwright show-report"
   },
   "dependencies": {
     "react": "^19.0.0",
@@ -17,6 +19,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@playwright/test": "^1.52.0",
     "@reduxjs/toolkit": "^2.6.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
